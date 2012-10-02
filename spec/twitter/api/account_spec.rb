@@ -114,6 +114,23 @@ describe Twitter::API do
     end
   end
 
+  describe "#update_profile_banner" do
+    before do
+      stub_post("/1/account/update_profile_banner.json").
+        to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "requests the correct resource" do
+      @client.update_profile_banner(fixture("me.jpeg"))
+      a_post("/1/account/update_profile_banner.json").
+        should have_been_made
+    end
+    it "returns a user" do
+      user = @client.update_profile_banner(fixture("me.jpeg"))
+      user.should be_a Twitter::User
+      user.id.should eq 7505382
+    end
+  end
+
   describe "#settings" do
     before do
       stub_get("/1.1/account/settings.json").

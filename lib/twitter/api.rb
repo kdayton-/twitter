@@ -129,6 +129,21 @@ module Twitter
       object_from_response(Twitter::User, :post, "/1.1/account/update_profile_image.json", options.merge(:image => image))
     end
 
+    # Uploads a profile banner on behalf of the authenticating user
+    #
+    # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_banner
+    # @rate_limited No
+    # @authentication_required Requires user context
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Twitter::User] The authenticated user.
+    # @param image [File, Hash] The banner image for the profile. Must be a valid GIF, JPG, or PNG image of less than 5 megabytes in size.
+    # @param options [Hash] A customizable set of options.
+    # @example Update the authenticating user's profile banner
+    #   Twitter.update_profile_banner(File.new("me.jpeg"))
+    def update_profile_banner(image, options={})
+      object_from_response(Twitter::User, :post, "/1/account/update_profile_banner.json", options.merge(:image => image))
+    end
+
     # Updates the authenticating user's settings.
     # Or, if no options supplied, returns settings (including current trend, geo and sleep time information) for the authenticating user.
     #
