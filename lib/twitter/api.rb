@@ -141,7 +141,7 @@ module Twitter
     # @example Update the authenticating user's profile banner
     #   Twitter.update_profile_banner(File.new("me.jpeg"))
     def update_profile_banner(image, options={})
-      object_from_response(Twitter::User, :post, "/1/account/update_profile_banner.json", options.merge(:image => image))
+      object_from_response(Twitter::User, :post, "/1/account/update_profile_banner.json", options.merge(:banner => image))
     end
 
     # Updates the authenticating user's settings.
